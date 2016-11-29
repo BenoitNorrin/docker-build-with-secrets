@@ -1,0 +1,14 @@
+version: '2'
+services:
+  project-builder:
+    build:
+      context: .
+      dockerfile: Dockerfile.build
+      args:
+        SVN_USER: <user subversion>
+        SVN_PASSWORD: <password subversion> 
+        PROJECT_VERSION: trunk
+    container_name: project-builder
+    privileged: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

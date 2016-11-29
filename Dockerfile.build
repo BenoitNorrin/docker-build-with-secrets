@@ -1,0 +1,18 @@
+FROM docker
+
+ARG SVN_USER
+ARG SVN_PASSWORD 
+
+ARG PROJECT_VERSION=tags/1.0.0/
+
+RUN apk add --no-cache subversion
+
+WORKDIR /project
+
+RUN svn export --username $SVN_USER --password $SVN_PASSWORD --no-auth-cache http://subversion.domain.tld/project/${PROJECT_VERSION} src 
+ADD Dockerfile.release Dockerfile
+
+# info sur la révision : svn info |grep Revision: |cut -c11-
+CMD docker build --no-cache --rm --force-rm -t project . 
+
+

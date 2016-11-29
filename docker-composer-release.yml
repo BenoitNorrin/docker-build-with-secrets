@@ -1,0 +1,17 @@
+version: '2'
+
+services:
+  php:
+    image: project
+    ports:
+      - "80:80"
+    links:
+      - db
+
+  db:
+    image: mysql:5.7
+    volumes:
+     - /var/lib/mysql
+    environment:
+     - MYSQL_ROOT_PASSWORD=user
+     - MYSQL_DATABASE=database
